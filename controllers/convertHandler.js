@@ -4,7 +4,8 @@ function ConvertHandler() {
     let val = input.match(/[.\d\/]+/g) || ["1"];
     let flag = 1;
     let result;
-    let n = val[0].split("/");
+    let value = val[0];
+    let n = value.split("/");
     if(n.length>2){
       //will have multiple fractions
       flag = 0;
@@ -15,13 +16,13 @@ function ConvertHandler() {
       let d = parseFloat(n1)/parseFloat(n2);
       if(isNaN(n1) || isNaN(n2)){
         // If the value be like 2.2.2
-        result = undefined;
+        return undefined;
       }else{
         result = d;
       }
       
     }else{
-      result = undefined;
+      return undefined;
     }
 
     return result;
@@ -29,23 +30,29 @@ function ConvertHandler() {
   
   this.getUnit = function(input) {
     let result;
-    var unit = (input.match(/[\[a-zA-Z]+/g)[0]).toLowerCase();
+    let regex = /[\[a-zA-Z]+/g;
+    if(regex.test(input) == true){
+      var unit = (input.match(regex)[0]).toLowerCase();
     
-    if(unit == "gal"){
-      result = "gal";
-    }else if(unit == "lbs"){
-      result = "lbs"
-    }else if(unit == "mi"){
-      result = "mi"
-    }else if(unit == "l"){
-      result = "L"
-    }else if(unit == "kg"){
-      result = "kg"
-    }else if(unit == "km"){
-      result = "km"
+      if(unit == "gal"){
+        result = "gal";
+      }else if(unit == "lbs"){
+        result = "lbs"
+      }else if(unit == "mi"){
+        result = "mi"
+      }else if(unit == "l"){
+        result = "L"
+      }else if(unit == "kg"){
+        result = "kg"
+      }else if(unit == "km"){
+        result = "km"
+      }else{
+        result = undefined;
+      }
     }else{
       result = undefined;
     }
+    
     return result;
   };
   

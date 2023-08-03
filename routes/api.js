@@ -9,18 +9,25 @@ module.exports = function (app) {
 
   app.route("/api/convert").get((req, res)=>{
     let input = req.query.input;
-    if(input==null || input == ""){
-      res.send("invalid unit");
-    }
-    let initNum = convertHandler.getNum(input);
-    let initUnit = convertHandler.getUnit(input);
+    let initNum;
+    let initUnit;
+    let r2 = /^[!@#\$%\^\&*\)\(+=._-]/g;
+    // if(input==null || input == ""){
+    //   res.send("invalid number and unit");
+    // }
 
-    if(!initNum && !initUnit){
-      res.send("invalid number and unit")
-    }else if(!initNum){
-      res.send("invalid number")
-    }else if(!initUnit){
-      res.send("invalid unit")
+    if(input != "" || r2.test(input) == false){
+      initNum = convertHandler.getNum(input);
+      initUnit = convertHandler.getUnit(input);
+      if(!initNum && !initUnit){
+        res.send("invalid number and unit");
+      }else if(!initNum){
+        res.send("invalid number");
+      }else if(!initUnit){
+        res.send("invalid unit");
+      }
+    }else{
+      res.send("invalid number and unit");
     }
 
     let returnNum = convertHandler.convert(initNum, initUnit);
