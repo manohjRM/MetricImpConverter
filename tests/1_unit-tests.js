@@ -65,7 +65,7 @@ suite('Unit Tests', function(){
 
     test("Convert L to gal", ()=>{
         let num = 20;
-        let unit = "l";
+        let unit = "L";
         const galToL = 3.78541;
         assert.equal(convertHandler.convert(num, unit), (num/galToL).toFixed(5));
     })
