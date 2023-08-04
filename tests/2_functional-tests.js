@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 suite('Functional Tests', () => {
 
     suite('Routing Tests', ()=>{
-        test("Valid input convert 10L", ()=>{
+        test("Valid input convert 10L", (done)=>{
             chai.request(server)
             .get('/api/convert')
             .query({input: '10L'})
@@ -19,9 +19,10 @@ suite('Functional Tests', () => {
                 assert.approximately(res.body.returnNum, 2.64172, 0.1);
                 assert.equal(res.body.returnUnit, "gal");
             })
+          done();
         })
     
-        test("Invalid input convert 32g", ()=>{
+        test("Invalid input convert 32g", (done)=>{
             chai.request(server)
             .get('/api/convert')
             .query({input: '32g'})
@@ -32,9 +33,10 @@ suite('Functional Tests', () => {
                 // assert.approximately(res.body.returnNum, 2.64172, 0.1);
                 // assert.equal(res.body.returnUnit, "gal");
             })
+          done();
         })
     
-        test("Invalid number convert 3/7.2/4kg", ()=>{
+        test("Invalid number convert 3/7.2/4kg", (done)=>{
             chai.request(server)
             .get('/api/convert')
             .query({input: '3/7.2/4kg'})
@@ -45,9 +47,10 @@ suite('Functional Tests', () => {
                 // assert.approximately(res.body.returnNum, 2.64172, 0.1);
                 // assert.equal(res.body.returnUnit, "gal");
             })
+          done();
         }) 
         
-        test("Invalid number and invalid unit convert 3/7.2/4kilomegagram", ()=>{
+        test("Invalid number and invalid unit convert 3/7.2/4kilomegagram", (done)=>{
             chai.request(server)
             .get('/api/convert')
             .query({input: '3/7.2/4kilomegagram'})
@@ -58,9 +61,10 @@ suite('Functional Tests', () => {
                 // assert.approximately(res.body.returnNum, 2.64172, 0.1);
                 // assert.equal(res.body.returnUnit, "gal");
             })
+          done();
         })  
     
-        test("No number convert kg", ()=>{
+        test("No number convert kg", (done)=>{
             chai.request(server)
             .get('/api/convert')
             .query({input: 'kg'})
@@ -71,6 +75,7 @@ suite('Functional Tests', () => {
                 // assert.approximately(res.body.returnNum, 2.64172, 0.1);
                 assert.equal(res.body.returnUnit, "lbs");
             })
+          done();
         })
     })
 

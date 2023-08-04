@@ -12,29 +12,28 @@ module.exports = function (app) {
     let initNum;
     let initUnit;
     let r2 = /^[!@#\$%\^\&*\)\(+=._-]/g;
-    // if(input==null || input == ""){
-    //   res.send("invalid number and unit");
-    // }
-
-    if(input != "" || r2.test(input) == false){
+    if(input==null || input == ""){
+      res.send("invalid number and unit");
+    }else{
       initNum = convertHandler.getNum(input);
-      initUnit = convertHandler.getUnit(input);
-      if(!initNum && !initUnit){
+    initUnit = convertHandler.getUnit(input);
+    if(!initNum && !initUnit){
         res.send("invalid number and unit");
       }else if(!initNum){
         res.send("invalid number");
       }else if(!initUnit){
         res.send("invalid unit");
-      }
-    }else{
-      res.send("invalid number and unit");
-    }
-
-    let returnNum = convertHandler.convert(initNum, initUnit);
+      }else{
+        let returnNum = convertHandler.convert(initNum, initUnit);
     let returnUnit = convertHandler.getReturnUnit(initUnit);
     let result = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
 
     res.json({initNum, initUnit, returnNum, returnUnit, string: result});
+      }
+
+    
+    }
+    
   })
 
 };
